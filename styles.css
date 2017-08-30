@@ -84,7 +84,12 @@ p {
 	font-size: 16px;
 	font-weight: 300;
 	letter-spacing: 1px;
-	margin-bottom: 35px;
+}
+
+a {
+	text-decoration: none;
+	color: #FFFFFF;
+	padding: 8px;
 }
 
 .travel {
@@ -161,6 +166,33 @@ p {
 	text-align: center;
 }
 
+.album{
+	margin: 0px auto;
+	width:100%;
+	height:500px;
+	color: #FFFFFF;
+	text-align:left;
+	text-shadow: 2px 2px 5px #000000;
+	line-height: 500px;
+	letter-spacing: 2px;
+}
+
+.album a {
+	padding-left: 10px;
+}
+
+#travel-album-001 {
+	background: url(images/travel.jpg) center center no-repeat;
+	background-size: cover;
+	
+}
+
+.img-show {
+	width: 100%;
+	
+}
+
+
 @media screen and (min-width: 768px) {
 	body {
 		max-width: 778px;
@@ -185,7 +217,7 @@ p {
 	
 	.col {
 		float: left;
-		padding: 0px 5px 10px;
+		padding: 0px 10px 10px;
 	}
 	
 	.col-md-one-third {
