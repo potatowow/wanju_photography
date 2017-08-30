@@ -1,0 +1,223 @@
+@charset "UTF-8";
+/* CSS Document */
+
+html,
+html * {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+}
+
+body {
+	margin: auto;
+}
+
+header {
+	padding: 24px;
+}
+
+footer {
+	padding: 20px 30px;
+}
+
+.style-logo {
+	margin: auto;
+	display: block;
+	width: 192px;
+}
+
+.style-nav ul {
+	list-style-type: none;
+}
+
+.style-nav ul li a {
+	text-decoration: none;
+	color: #2F322A;
+	text-align: center;
+	display: block;
+	text-transform: uppercase;
+	padding: 8px;
+}
+
+.row:before, .row:after {
+	content: "";
+	display: table;
+}
+
+.row:after {
+	clear: both;
+}
+
+.col {
+	width: 100%;
+}
+
+h1 {
+	font-size: 58px;
+	text-transform: uppercase;
+	font-weight: 200;
+	margin-bottom: 60px;
+}
+
+h2 {
+	font-size: 36px;
+	text-transform: uppercase;
+	font-weight: 200;
+	margin-bottom: 50px;
+}
+
+h3 {
+	font-size: 32px;
+	text-transform: uppercase;
+	font-weight: 200;
+	margin-bottom: 120px;
+}
+
+h4 {
+	font-size: 24px;
+	font-weight: 200;
+	margin:50px 0 30px 0;
+}
+
+p {
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	margin-bottom: 35px;
+}
+
+.travel {
+	background: url(images/travel.jpg) center center no-repeat;
+	background-size: cover;
+	padding: 50px 20px 50px 20px;
+	color: #FFFFFF;
+	text-align: center;
+	text-shadow: 0 0 50px #555555;
+}
+
+.button {
+	background-color: hsla(0,0%,60%,0.30);
+	border: 2px #FFFFFF solid;
+	padding: 8px 30px;
+	border-radius: 30px;
+	color: #FFFFFF;
+	text-decoration: none;
+	text-shadow: 0 0 15px #cccccc;
+}
+
+.button:hover {
+	background-color: hsla(0,0%,90%,0.70);
+}
+
+.artist {
+	background: url(images/artist.jpg) center center;
+	background-size: cover;
+	color: #FFFFFF;
+	padding: 50px 20px 50px 20px;
+	text-align: center;
+	text-shadow: 0 0 50px #555555;
+}
+
+.friends {
+	background: url(images/friends.jpg) center 65%;
+	background-size: cover;
+	color: #FFFFFF;
+	padding: 50px 20px 50px 20px;
+	text-align: center;
+	text-shadow: 0 0 50px #555555;
+}
+
+.concert1 {
+	background: url(images/concert1.jpg) center center;
+	background-size: cover;
+	color: #FFFFFF;
+	padding: 50px 20px 50px 20px;
+	text-align: center;
+	text-shadow: 2px 2px 5px #000000;
+}
+
+.concert2 {
+	background: url(images/concert2.jpg) center 30%;
+	background-size: cover;
+	color: #FFFFFF;
+	padding: 50px 20px 50px 20px;
+	text-align: center;
+	text-shadow: 2px 2px 5px #000000;
+}
+
+.concert3 {
+	background: url(images/concert3.jpg) center 30%;
+	background-size: cover;
+	color: #FFFFFF;
+	padding: 50px 20px 50px 20px;
+	text-align: center;
+	text-shadow: 2px 2px 5px #000000;
+}
+
+.footer-text {
+	font-size: 13px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	body {
+		max-width: 778px;
+	}
+	
+	.style-nav ul li {
+		display: inline-block;
+	}
+	
+	.style-nav ul {
+		text-align: center;
+	}
+	
+	h1 {
+		font-size: 40px;
+		margin-bottom: 90px;
+	}
+	
+	.col-md-one-half {
+		width: 50%;
+	}
+	
+	.col {
+		float: left;
+		padding: 0px 5px 10px;
+	}
+	
+	.col-md-one-third {
+		width: 33.3%;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	body {
+		max-width: 1200px;
+	}
+	
+	.style-logo {
+		float: left;
+	}
+	
+	.style-nav {
+		float: right;
+	}
+	
+	h1 {
+		font-size: 80px;
+	}
+	
+	.travel {
+		height: 500px;
+		padding: 200px;
+	}
+	
+	.artist, .friends {
+		height: 400px;
+		padding: 150px;
+	}
+	
+}
