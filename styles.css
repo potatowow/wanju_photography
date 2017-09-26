@@ -54,7 +54,7 @@ footer {
 }
 
 h1 {
-	font-size: 58px;
+	font-size: 48px;
 	text-transform: uppercase;
 	font-weight: 200;
 	margin-bottom: 60px;
@@ -89,7 +89,6 @@ p {
 a {
 	text-decoration: none;
 	color: #FFFFFF;
-	padding: 8px;
 }
 
 .travel {
@@ -172,12 +171,12 @@ a {
 	height:500px;
 	color: #FFFFFF;
 	text-align:left;
-	text-shadow: 2px 2px 5px #000000;
+	text-shadow: 2px 2px 5px #333333;
 	line-height: 500px;
 	letter-spacing: 2px;
 }
 
-.album a {
+.album h1 {
 	padding-left: 10px;
 }
 
@@ -223,9 +222,8 @@ a {
 	
 }
 
-.img-show {
+.img-show img{
 	width: 100%;
-	
 }
 
 
@@ -243,7 +241,7 @@ a {
 	}
 	
 	h1 {
-		font-size: 40px;
+		font-size: 58px;
 		margin-bottom: 90px;
 	}
 	
@@ -259,6 +257,16 @@ a {
 	.col-md-one-third {
 		width: 33.3%;
 	}
+
+	.img-show {
+		width: 80%;
+		margin: auto;
+	}
+
+	.img-show img {
+		width: 100%;
+	}
+
 }
 
 @media screen and (min-width: 1024px) {
