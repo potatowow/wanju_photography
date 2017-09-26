@@ -244,14 +244,14 @@ a {
 		font-size: 58px;
 		margin-bottom: 90px;
 	}
+
+	.col {
+		float: left;
+		padding: 0px 5px 10px 5px;
+	}
 	
 	.col-md-one-half {
 		width: 50%;
-	}
-	
-	.col {
-		float: left;
-		padding: 0px 10px 10px;
 	}
 	
 	.col-md-one-third {
