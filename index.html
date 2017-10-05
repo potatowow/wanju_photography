@@ -5,14 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WanJu Photography</title>
 <link rel="stylesheet" href="styles.css">
-<script type="text/javascript" src="jquery-3.2.1.min.js" ></script>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<!---->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#toggle').click(function() {
+	$(this).toggleClass('active');
+	$('#overlay').toggleClass('open');
+	});
+})
+
+</script>
 </head>
 
 <body>
 	<header>
 		<div class="row">
-			<div class="col">
+			<div>
 				<a href="#"><img class="style-logo" src="images/logo.png" alt="WanJu_logo"></a>
+				<div class="button_container" id="toggle">
+					<span class="top"></span>
+					<span class="middle"></span>
+					<span class="bottom"></span>
+				</div>
+				<div class="overlay" id="overlay">
+					<nav class="overlay-menu">
+						<ul>
+							<li><a href="travel.html">Travel</a></li>
+							<li><a href="artist.html">Artist</a></li>
+							<li><a href="friends.html">Friends</a></li>
+							<li><a href="#">Concert</a></li>
+						</ul>
+					</nav>
+				</div>
+				<!--
 				<nav class="style-nav">
 					<div class="main-nav"></div>
 					<div class="sub-nav"></div>
@@ -25,6 +51,7 @@
 				</nav>
 			</div>
 		</div>
+	-->
 	</header>
 	<main>
 		<div class="row">

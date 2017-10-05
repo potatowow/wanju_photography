@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
 /* CSS Document */
 
 html,
@@ -6,7 +7,7 @@ html * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
 }
 
 body {
@@ -14,7 +15,10 @@ body {
 }
 
 header {
-	padding: 24px;
+	padding: 16px;
+	position: fixed;
+	background: #FFF;
+	width: 100%;
 }
 
 footer {
@@ -24,7 +28,7 @@ footer {
 .style-logo {
 	margin: auto;
 	display: block;
-	width: 192px;
+	height: 38px;
 }
 
 .style-nav ul {
@@ -39,6 +43,109 @@ footer {
 	text-transform: uppercase;
 	padding: 8px;
 }
+/*navbar按鈕*/
+.button_container {
+	position: fixed;
+	top: 20px;
+	right: 30px;
+	height: 30px;
+	width: 35px;
+	cursor: pointer;
+	z-index: 100;
+	transition: opacity .25s ease;
+}
+
+.button_container:hover {
+	opacity: .7;
+}
+
+.button_container.active .top {
+	transform: translateY(11px) translateX(0) rotate(45deg);
+	background: #2F322A;
+}
+
+.button_container.active .middle {
+	opacity: 0;
+	background: #2F322A;
+}
+
+.button_container.active .bottom {
+	transform: translateY(-11px) translateX(0) rotate(-45deg);
+	background: #2F322A;
+}
+
+span {
+	background: #2F322A;
+	border: none;
+	height: 2px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition:  all .35s ease;
+	cursor: pointer;
+}
+
+.middle {
+	position: absolute;
+	top: 11px;
+}
+
+.bottom {
+	position: absolute;
+	top: 22px;
+}
+
+.overlay {
+	position: fixed;
+	background: #FFF;
+	top: 70px;
+	left: 0;
+	width: 100%;
+	height: 0%;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .35s, visibility .35s, height .35s;
+	overflow: hidden;
+}
+
+.overlay.open {
+	opacity: .9;
+	visibility: visible;
+	height: 100%;
+}
+
+.overlay.open li {
+	animation: fadeInRight .5s ease forwards;
+	animation-delay: .35s;
+}
+
+.overlay-menu {
+	position: relative;
+	height: 70%;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #2F322A;
+	line-height: 30px;
+	font-size: 24px;
+	font-weight: 100;
+	text-align: center;
+}
+
+.overlay-menu ul li {
+	margin: 30px;
+	list-style: none;
+}
+
+.overlay-menu ul li a {
+	color: #2F322A;
+}
+
+.overlay-menu ul li a:hover {
+	opacity: .7;
+	border-bottom: #2F322A 1px solid;
+}
+
 
 .row:before, .row:after {
 	content: "";
