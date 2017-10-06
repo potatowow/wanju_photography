@@ -354,7 +354,7 @@ a {
 }
 /*About CSS start*/
 .main-about {
-	margin-top: 55px;
+	margin-top: 0;
 }
 
 .main-content {
@@ -432,6 +432,10 @@ a {
 
 	.img-show img {
 		width: 100%;
+	}
+
+	.main-about {
+		margin-top: 50px;
 	}
 
 	.main-content {
