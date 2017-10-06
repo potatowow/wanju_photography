@@ -292,7 +292,7 @@ a {
 	text-align: center;
 }
 
-.album{
+.album {
 	margin: 0px auto;
 	width:100%;
 	height:500px;
@@ -303,8 +303,15 @@ a {
 	letter-spacing: 2px;
 }
 
-.album h1 {
-	padding-left: 10px;
+.album p {
+	padding-left: 20px;
+	font-size: 48px;
+	transition: background .5s;
+}
+
+.album p:hover {
+	background: rgba(255,255,255,0.3);
+	transition: background .5s;
 }
 
 #travel-album-001 {
