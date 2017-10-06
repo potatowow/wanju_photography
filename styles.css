@@ -52,9 +52,9 @@ footer {
 	height: 30px;
 	width: 35px;
 	cursor: pointer;
-	z-index: 200;
+	z-index: 500;
 	transition: opacity .25s ease;
-	margin-top: 5px;
+	margin: 5px 10px 0 0;
 }
 
 .button_container:hover {
@@ -144,6 +144,25 @@ span {
 	border-bottom: #2F322A 1px solid;
 }
 
+#gotop {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	background: rgba(255,255,255,0.75);
+	color: #2F322A;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 14px;
+	font-weight: 100;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	display: block;
+	cursor: pointer;
+	z-index: 50;
+}
 
 .row:before, .row:after {
 	content: "";
@@ -339,15 +358,7 @@ a {
 	body, header {
 		max-width: 778px;
 	}
-	
-	.style-nav ul li {
-		display: inline-block;
-	}
-	
-	.style-nav ul {
-		text-align: center;
-	}
-	
+
 	h1 {
 		font-size: 58px;
 		margin-bottom: 90px;
@@ -386,9 +397,6 @@ a {
 		float: left;
 	}
 	
-	.style-nav {
-		float: right;
-	}
 	
 	h1 {
 		font-size: 80px;
@@ -409,17 +417,4 @@ a {
 		margin: auto;
 	}
 	
-}
-
-.style-nav ul {
-	list-style-type: none;
-}
-
-.style-nav ul li a {
-	text-decoration: none;
-	color: #2F322A;
-	text-align: center;
-	display: block;
-	text-transform: uppercase;
-	padding: 8px;
 }
