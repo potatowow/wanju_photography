@@ -5,21 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="styles.css">
 <title>WanJu Photography</title>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
 	<header>
 		<div class="row">
-			<div class="col">
+			<div class="header-col">
 				<a href="index.html"><img class="style-logo" src="images/logo.png" alt="WanJu_logo"></a>
-				<nav class="style-nav">
-					<div class="main-nav"></div>
-					<div class="sub-nav"></div>
+				<div class="button_container" id="toggle">
+					<span class="top"></span>
+					<span class="middle"></span>
+					<span class="bottom"></span>
+				</div>
+			</div>
+			<div class="overlay" id="overlay">
+				<nav class="overlay-menu">
 					<ul>
 						<li><a href="travel.html">Travel</a></li>
 						<li><a href="artist.html">Artist</a></li>
 						<li><a href="friends.html">Friends</a></li>
 						<li><a href="#">Concert</a></li>
+						<li><a href="#">About</a></li>
 					</ul>
 				</nav>
 			</div>
