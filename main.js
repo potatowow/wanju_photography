@@ -1,8 +1,5 @@
 $(document).ready(function() {
-	$('#toggle').click(function() {
-	$(this).toggleClass('active');
-	$('#overlay').toggleClass('open');
-	});
+	
 });
 
 /*scrollTop*/
@@ -12,5 +9,12 @@ $(function() {
 			scrollTop:0
 		},1000);
 		return false;
+	});
+});
+/*navbar選單動畫*/
+$(function() {
+	$('#toggle').click(function() {
+		$(this).toggleClass('active');
+		$('#overlay').toggleClass('open');
 	});
 });
