@@ -2,8 +2,12 @@ $(document).ready(function() {
 	
 });
 
-/*scrollTop*/
+/*lazyload scrollTop*/
 $(function() {
+	$('img.lazyload').lazyload({
+		//載入的圖片用淡入的效果載入
+		effect:'fadeIn', placeholder: 'images/loading.gif'
+	});
 	$('#gotop').click(function(){
 		$('html, body').animate({
 			scrollTop:0
