@@ -1,0 +1,129 @@
+var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+
+
+$(function(){
+            imagesProgress()
+            window.addEventListener('deviceorientation', onOrientation);
+            function onOrientation(event) {
+                var alpha = event.alpha;
+                var beta = event.beta/5;
+                var gamma = (event.gamma*-1)/2;       
+                TweenLite.to(".stage", 1, {transform:'translateZ(0px) rotateX('+beta+'deg) rotateY('+gamma+'deg)'});          
+                //$("#container").css({transform:'translateZ(0px) rotateX('+beta+'deg) rotateY('+gamma+'deg)'});
+            }
+            //以上控制手機陀螺儀
+
+            $('body').mousemove(function(event) {
+                cx = Math.ceil($('body').width() / 2.0);
+                cy = Math.ceil($('body').height() / 2.0);
+                dx = event.pageX - cx;
+                dy = event.pageY - cy;
+
+                tiltx = (dy / cy)*10;
+                tilty = - (dx / cx)*20;
+
+                TweenLite.to(".stage", 1, {transform:'translateZ(0px) rotateX('+tiltx+'deg) rotateY('+tilty+'deg)'});
+                //$("#container").css({transform:'translateZ(0px) rotateX('+tiltx+'deg) rotateY('+tilty+'deg)'});
+
+            });
+
+
+    $('.index_btn').on('click',function(){
+                TweenLite.to($body, 1, {
+                        scrollTop: $('#form').offset().top
+                    })
+    })
+
+/***index an******************/        
+        function on_page_loaded(){
+            new TimelineLite().fromTo($('.prod2'), 2
+                        /*開始*/, { scale:0.5, alpha:0}
+                        /*結束*/, { scale:1, alpha:1, ease: Power3.easeOut}
+                        );
+
+            new TimelineLite().fromTo($('.prod1'), 2
+                        /*開始*/, {left:21, alpha:0, scale:0.8}
+                        /*結束*/, {left:121, alpha:1,scale:1, ease:Power3.easeOut}
+                        );
+
+            new TimelineLite().fromTo($('.prod1_2wrap'), 2
+                        /*開始*/, {top:-45, alpha:0, scale:0.8}
+                        /*結束*/, {top:55, alpha:1,scale:1, ease:Power3.easeOut}
+                        );
+
+            new TimelineLite().fromTo($('.prod3'), 2
+                        /*開始*/, {left:442, alpha:0, scale:0.8}
+                        /*結束*/, {left:342, alpha:1,scale:1, ease:Power3.easeOut}
+                        );
+
+            new TimelineLite().fromTo($('.stage'), 2
+                        /*開始*/, {alpha:0}
+                        /*結束*/, {alpha:1, ease:Power3.easeOut}
+                        );
+
+            new TimelineLite().fromTo( $('#index h1'),2
+                        /*開始*/, { scale:0, alpha:0}
+                        /*結束*/, { scale:1, alpha:1, ease: Power3.easeOut}
+                       , 1);
+
+            new TimelineLite().fromTo( $('#index h2'),2
+                        /*開始*/, {  alpha:0, top: 710}
+                        /*結束*/, {  alpha:1,top: 740, ease: Power3.easeOut}
+                       , 1.5);
+
+            new TimelineLite().fromTo( $('.index_btn'),1
+                        /*開始*/, { scale:0, alpha:0}
+                        /*結束*/, { scale:1, alpha:1, ease: Power3.easeOut}
+                       , 2);
+
+
+
+           /* setTimeout(function(){
+                 $('.index-btn,.index-btn p').addClass('is-active')
+            },2000);*/
+
+        }
+/***loading******************/
+                function imagesProgress(){
+                    var $container=$('#progress')
+                    var $progressBar=$container.find('.progress-bar')
+                    var $progressText=$container.find('.progress-text')
+                    var imgLoad=imagesLoaded('body')
+                    var imgTotal=imgLoad.images.length
+                    var imgLoaded=0
+                    var current=0
+                        
+                    var progressTimer=setInterval(updateProgress,1000/60)
+                    $('body').imagesLoaded({ background: true }).progress( function( instance, image ) {
+                    imgLoaded++
+                    });
+                        
+                    function updateProgress(){
+                        var target=(imgLoaded/imgTotal)*100 
+                        current+=(target-current)*0.1
+                        $progressBar.css({width:current+'%'})
+                        //$progressText.text('loading ... '+Math.round(current)+'%');
+                        //console.log(current)
+                        if(current>=100){
+                            clearInterval(progressTimer)
+                            //完成之後的動作
+                           // $container.stop().fadeOut();
+                            TweenLite.to($container,.5, {css:{scale:1.5},transformOrigin:"50% 50%"});
+                            $container.fadeOut(800);
+                            on_page_loaded()
+                        }
+                        if(current>99.9){
+                            current=100
+                            //$progressText.text('Welcome, come in!');
+                        }
+                    }
+                }
+
+
+
+             
+
+            
+
+
+})

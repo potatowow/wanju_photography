@@ -1,0 +1,86 @@
+
+// JavaScript Document
+$(function () {
+
+  //game
+  var q_btns = document.querySelectorAll('.q-btn');
+  var score = 0;
+  for (var i = 0; i < q_btns.length; i++) {
+    q_btns[i].addEventListener('click', function () {
+      score = score + parseInt(this.dataset.score);
+    });
+  }
+
+
+  // nav scroll
+  $("#KV .btn").click(function () {
+    $('html,body').animate({ scrollTop: $('#QA').offset().top - 100 }, 800);
+  }
+  );
+  $(".m1").click(function () {
+    $('html,body').animate({ scrollTop: $('#KV').offset().top - 50 }, 800);
+  }
+  );
+  $(".m2").click(function () {
+    $('html,body').animate({ scrollTop: $('#VIDEO').offset().top - 100 }, 800);
+  }
+  );
+  $(".m3").click(function () {
+    $('html,body').animate({ scrollTop: $('#MAKEUP').offset().top - 100 }, 800);
+  }
+  );
+  $(".m4").click(function () {
+    $('html,body').animate({ scrollTop: $('#BLOGGER').offset().top - 100 }, 800);
+  }
+  );
+  $(".m5").click(function () {
+    $('html,body').animate({ scrollTop: $('#PRODUCT').offset().top - 100 }, 800);
+  }
+  );
+  $(".m6").click(function () {
+    $('html,body').animate({ scrollTop: $('#ARTICLE').offset().top - 100 }, 800);
+  }
+  );
+  //$(".m7").click(function () {
+  //  $('html,body').animate({ scrollTop: $('#QA').offset().top - 100 }, 800);
+  //}
+  //);
+
+  $(".start-btn").click(function () {
+    $(".start").stop().fadeOut(0);
+    $(".q1").stop().fadeIn(200);
+  });
+  $(".btn1,.btn2").click(function () {
+    $(".q1").stop().fadeOut(0);
+    $(".q2").stop().fadeIn(200);
+  });
+  $(".btn3,.btn4").click(function () {
+    $(".q2").stop().fadeOut(0);
+    $(".q3").stop().fadeIn(200);
+  });
+  $(".btn5,.btn6").click(function () {
+    $(".q3").stop().fadeOut(0);
+    if (score == 7) {
+      $(".resultB").stop().fadeIn(200);
+      score = 0;
+    } else {
+      $(".resultA").stop().fadeIn(200);
+      score = 0;
+    }
+  });
+  $(".share-btn").click(function () {
+    $(".resultA").stop().fadeOut(0);
+    $(".resultB").stop().fadeOut(0);
+    $(".form").stop().fadeIn(200);
+  });
+
+
+
+  // waypoints
+  $('.menu .con ul li a').click(function () {
+    $('.menuToggle input').removeAttr('checked');
+
+  });
+
+
+})

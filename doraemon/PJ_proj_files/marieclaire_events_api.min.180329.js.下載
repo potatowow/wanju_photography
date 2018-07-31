@@ -1,0 +1,596 @@
+var _api_mc_domain   = 'https://api.marieclaire.com.tw/';
+var _api_shop_domain = 'https://shop.marieclaire.com.tw/';
+var _back_data_info;
+
+/**
+ * Jquery Plugin
+ *
+ * author ：steven
+ * modify ：steven
+ *
+ **/
+(function( $ ) {
+    if (typeof($.sha256) == 'undefined')
+    {
+        var script = document.createElement('script');
+        script.src = 'https://i.marieclaire.com.tw/assets/js/jquery.sha256.min.js';
+        document.write(script.outerHTML);
+    }
+	$.fn.marieclaire_product_info = function(options) {
+        var api_url = _api_shop_domain+"item/jsons";
+        var _obj    = this;
+
+        var defaults = {
+            api_call_back   : "",
+            final_call_back : "",
+            item_id         : "",
+            keys            : "",
+        };
+
+        var settings = $.extend( {}, defaults, options );
+
+        var ajax = $.ajax({
+            url: api_url,
+            type: 'POST',
+            dataType: 'jsonp',
+            data:{
+                "item_id":settings.item_id,
+                "keys":settings.keys
+            }
+        });
+        var json_data = {
+            "time" :'',
+            "token":''
+        };
+        ajax.done(function(response) {
+            if (typeof(response) == 'object')
+            {
+                if (response.success == true && typeof(response.data) == 'object')
+                {
+                    json_data.time  = response.data.time;
+                    json_data.token = response.data.token;
+
+                    if (settings.api_call_back != '')
+                    {
+                        _obj.mainfunc(settings.api_call_back, response.data);
+                    }
+                }
+            }
+        });
+
+        _obj.add_to_cart = function(data)
+        {
+            if (typeof(data) == 'undefined')
+            {
+                return false;
+            }
+            var defaults = {
+                product_id : "",
+                quantity   : "",
+                name       : "",
+                cellphone  : "",
+                gender     : "",
+                email      : "",
+                age        : "",
+                job        : ""
+            };
+            var cart_data = $.extend( {}, defaults, data );
+
+            var api_url = _api_shop_domain+'cart/get_event_cart_info';
+
+            if (typeof(json_data) == 'undefined' || typeof(cart_data.product_id) == 'undefined' || typeof(cart_data.quantity) == 'undefined')
+            {
+                alert('資料錯誤');
+                return false;
+            }
+            if (typeof(cart_data.name) == 'undefined' || cart_data.name == '')
+            {
+                alert('請輸入姓名');
+                return false;
+            }
+            if (typeof(cart_data.email) == 'undefined' || cart_data.email == '')
+            {
+                alert('請輸入email');
+                return false;
+            }
+            if (typeof(cart_data.cellphone) == 'undefined' || cart_data.cellphone == '')
+            {
+                alert('請輸入手機');
+                return false;
+            }
+
+            var token_info = {
+                'time'      : json_data.time,
+                'token'     : json_data.token,
+                'cart_data' : cart_data
+            };
+
+            var ajax = $.ajax({
+                url: api_url,
+                dataType: 'jsonp',
+                data:token_info
+            });
+            
+            ajax.done(function( response ) {
+                if (typeof(response) != 'undefined')
+                {
+                    if(response.check == false)
+                    {
+                        alert(response.msg);
+                    }
+                    else
+                    {
+                        location = response.url;
+                    }
+                };
+            });
+        };
+
+        return _obj;
+    };
+	$.fn.marieclaire_exchange_info = function(options) {
+        var api_url   = _api_mc_domain+"event/exchang/info";
+        var post_api  = _api_mc_domain+"event/exchang/send";
+        
+        var _obj = this;
+        var defaults = {
+            api_call_back   : "",
+            final_call_back : "",
+            data_info       : "",
+            keys            : "",
+        };
+        var settings = $.extend( {}, defaults, options );
+        var document_url = location.search;
+
+        var reg = /([a-zA-Z0-9]{32})/g;
+
+        var result = document_url.match(reg);
+        if (result == null)
+        {
+            alert('你兌換的網址有誤!');
+            return false;
+        }
+        if (result.length > 0)
+        {
+            var keys = result.shift();
+            if (keys.length == 32)
+            {
+                settings.keys = keys;
+            }
+        }
+        
+        _obj.mainfunc = function(func, array)
+        {
+            window[func].apply({ value: array });
+        };
+        _obj.send_exchang_info = function()
+        {
+            if (settings.data_info.exchange_status)
+            {
+                alert('此序號已兌換商品');
+                return false;
+            }
+            var r = confirm("你確認現在要兌換商品嗎?");
+            if (r == true)
+            {
+                var ajax = $.ajax({
+                    url: post_api,
+                    type: 'POST',
+                    dataType: 'jsonp',
+                    data:{
+                        "keys":settings.keys,
+                        "data":settings.data_info
+                    }
+                });
+                ajax.done(function(response) {
+                    if (typeof(response) == 'object')
+                    {
+                        if (response.success == true)
+                        {
+                            if (settings.final_call_back != '')
+                            {
+                                _obj.mainfunc(settings.final_call_back, false);
+                            }
+                        }
+                        else
+                        {
+                            alert(response.msg);
+                        }
+                    }
+                });
+            }
+        };
+        
+        _obj.get_exchang_info = function()
+        {
+            var ajax = $.ajax({
+                url: api_url,
+                type: 'POST',
+                dataType: 'jsonp',
+                data:{"keys":settings.keys}
+            });
+            ajax.done(function(response) {
+                if (typeof(response) == 'object')
+                {
+                    if (response.success == true && typeof(response.data) == 'object')
+                    {
+                        if (settings.api_call_back != '')
+                        {
+                            settings.data_info = response.data;
+                            _obj.mainfunc(settings.api_call_back, response.data);
+                        }
+                    }
+                }
+            });
+        };
+
+        return _obj;
+    };
+	$.fn.marieclaire_facebook_api = function(options) {
+        var _obj = this;
+        var defaults = {
+            app_id : "1931671150490548",
+            login_call_back: "",
+            share_call_back: "",
+            share_link: "",
+            hash_code : "",
+            events_id : 0,
+            token     : "",
+            time      : 0,
+            ver       : 0.01
+        };
+
+        var settings = $.extend( {}, defaults, options );
+        
+        settings.hash_code = $.sha256(settings.hash_code);
+        settings.hash_code = settings.hash_code.toUpperCase();
+        settings.ver       = parseFloat(settings.ver);
+
+        window.fbAsyncInit = function() {
+            FB.init({
+              appId      : settings.app_id,
+              xfbml      : true,
+              version    : 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+            FB.getLoginStatus(function(response) {
+                _obj.statusChangeCallback(response);
+                }, {
+                scope: 'email', 
+                return_scopes: true
+            });
+        };
+
+        (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        
+        _obj['fb_info'] = new Object();
+        
+        _obj.statusChangeCallback = function(response)
+        {
+            if (response.status === 'connected') 
+            {
+                _obj.get_facebook_info();
+            }
+        };
+        _obj.go_login = function()
+        {
+            FB.login(function(response){
+                _obj.statusChangeCallback(response);
+            }, {
+                scope: 'email', 
+                return_scopes: true
+            });
+        };
+        _obj.get_facebook_info = function()
+        {
+            FB.api('/me?fields=name,email', function(response) {
+                _obj.fb_info['id'] = response.id;
+                _obj.fb_info['email'] = response.email;
+                _obj.fb_info['name'] = response.name;
+                
+                if (settings.login_call_back != '')
+                {
+                    obj.mainfunc(settings.login_call_back, _obj);
+                }
+            });
+        };
+        _obj.mainfunc = function(func)
+        {
+            window[func].apply(null, Array.prototype.slice.call(arguments, 1));
+        };
+        _obj.share_facebook_info = function()
+        {
+            FB.ui({
+                method: 'feed',
+                display: 'popup',
+                mobile_iframe: true,
+                link: settings.share_link,
+            }, 
+            function(response){
+                var post_id = 0;
+                if (typeof(response) != 'undefined')
+                {
+                    post_id = 1;
+
+                    var post_api  = _api_mc_domain+"event/facebook_share";
+                    var token_info = {
+                        'time'     :settings.time,
+                        'token'    :settings.token,
+                        'hash_code':settings.hash_code,
+                        'events_id':settings.events_id
+                    };
+                
+                    var ajax = $.ajax({
+                        url: post_api,
+                        type: 'POST',
+                        dataType: 'jsonp',
+                        data:{
+                            "token":token_info, 
+                            "back":_back_data_info, 
+                            'fb_info':_obj.fb_info
+                        }
+                    });
+                    ajax.done(function(response) {
+                        if (settings.share_call_back != '')
+                        {
+                            obj.mainfunc(settings.share_call_back, response);
+                        }
+                    });
+                }
+            });
+        };
+        
+        return _obj;
+    };
+	$.fn.marieclaire_events_api = function(options) {
+        var _obj = this;
+        var api_url   = _api_mc_domain+"event/api";
+        var post_api  = _api_mc_domain+"event/get_event_user_info";
+        var defaults = {
+            input_key : "",
+            hash_code : "",
+            events_id : 0,
+            "success_call_back" : "",
+            "error_call_back" : "",
+            token     : "",
+            time      : 0,
+            ver       : 0.01
+        };
+        var token_info = new Object();
+        var json_data  = new Array();
+        var error_data = new Array();
+        var settings = $.extend( {}, defaults, options );
+        if (parseInt(settings.events_id) <= 0)
+        {
+            alert('參數錯誤');
+        }
+        $(_obj).attr('action', '#');
+        
+        settings.hash_code = $.sha256(settings.hash_code);
+        settings.hash_code = settings.hash_code.toUpperCase();
+        settings.ver = parseFloat(settings.ver);
+        _obj.mainfunc = function(func, array)
+        {
+            window[func].apply({ value: array });
+        };
+        _obj.check_input = function(input_name, info)
+        {
+            if (info.input_type == 'select')
+            {
+                var obj = $('select[name="'+input_name+'"]');
+            }
+            else
+            {
+                var obj = $('input[name="'+input_name+'"]');
+            }
+
+            if (obj.length > 0)
+            {
+                if (info.input_type != 'select')
+                {
+                    obj.attr('placeholder', info.placeholder);
+                    obj.attr('maxlength', info.length);
+                }
+                if (info.input_name == 'store_region')
+                {
+                    var content = '<option value="" disabled>請選擇區域</option>';
+                    $.each( info.value_data, function( key, row ) {
+                        content += '<option value="'+row.value+'">'+row.name+'</option>';
+                    });
+                    obj.append(content);
+                }
+                if (info.input_name == 'store_name')
+                { 
+                    store_data = info.value_data;
+
+                    $('select[name="store_region"]').on('change', function(){
+                        var store_region = $(this).val();
+                        if (typeof(store_data[store_region] != 'undefined'))
+                        {
+                            var date_time = new Date().getTime();
+                            var timestamp = Math.floor(date_time / 1000);
+                            var content = '<option value="" disabled>請選擇櫃點</option>';
+                            $.each( store_data[store_region], function( key, row ) {
+                                var disabled = false;
+                                if (row.uxtime_start > 0 && row.uxtime_end > 0)
+                                {
+                                    if (row.uxtime_start > timestamp || timestamp > row.uxtime_end)
+                                    {
+                                        disabled = true;
+                                    }
+                                }
+                                
+                                if (parseInt(row.quantity) <= 0)
+                                {
+                                    disabled = true;
+                                }
+                                var tag_disabled = disabled ? ' disabled':'';
+                                content += '<option value="'+row.value+'"'+tag_disabled+'>'+row.name+'</option>';
+                            });
+                            obj.html(content);
+                        }
+                    });
+                }
+
+                if (info.status == 0)
+                {
+                    obj.attr('disabled', true);
+                }
+            }
+            else
+            {
+                if (info.status == 1)
+                {
+                    var error_name = "input名稱:"+info.name+"找不到#"+input_name;
+                    error_data.push(error_name);
+                }
+            }
+        };
+        _obj.show_error_info = function()
+        {
+            $.each( error_data, function( key, name ) {
+                $("#mc_event_error").append('<p>'+name+'</p>');
+            });
+        };
+        _obj.set_form_param = function(ajax)
+        {
+            ajax.done(function( response ) {
+                if (typeof(response) != 'undefined')
+                {
+                    if (response.success == false){
+                        alert(response.msg);
+                        return false;
+                    }
+                    json_data = JSON.parse(response.data);
+
+                    $.each( json_data, function( key, info ) {
+                        var input_name = settings.input_key+info['key'];
+                        _obj.check_input(input_name, info);
+                    });
+                    _obj.show_error_info();
+                };
+            });
+        }
+        _obj.get_event_info = function()
+        {
+            token_info = {
+                'time'     :settings.time,
+                'token'    :settings.token,
+                'hash_code':settings.hash_code,
+                'events_id':settings.events_id
+            };
+            var ajax = $.ajax({
+                url: api_url,
+                dataType: 'jsonp',
+                data:token_info
+            });
+            _obj.set_form_param(ajax);
+        };
+        var input_type_list = ["radio", "checkbox"];
+
+        _obj.get_input_value = function()
+        {
+            var result = new Object();
+            var status = true;
+            $.each( json_data, function( key, info ) {
+                var input_name = settings.input_key+info['key'];
+                if ($.inArray(info.input_type, input_type_list ) > -1)
+                {
+                    var obj = $('input[name="'+input_name+'"]:checked');
+                }
+                else
+                {
+                    if (info.input_type == 'select')
+                    {
+                        var obj = $('select[name="'+input_name+'"]');
+                    }
+                    else
+                    {
+                        var obj = $('input[name="'+input_name+'"]');
+                    }
+                }
+                if (info.status == 1 && obj.length == 0)
+                {
+                    if (status){
+                    alert('找不到'+info.name);
+                    }
+                    status = false;
+                }
+                if (info.status == 1 && info.value_null == 1)
+                {
+                    if (obj.val() == '')
+                    {
+                        if (status){
+                            alert(info.name+'不可為空值');
+                        }
+                        
+                        status = false;
+                    }
+                }
+                if (status){
+                    result[info['key']] = obj.val();
+                }
+                
+            });
+            if(status){
+                return result;
+            }
+            return false;
+        }
+        _obj.clear_form_data = function()
+        {
+            $(_obj)[0].reset();
+        }
+        _obj.set_facebook_init = function()
+        {
+            
+        }
+        if (settings.ver == 0.01)
+        {
+            _obj.get_event_info();
+        }
+
+        $(this).on('submit', function(){
+            var result = _obj.get_input_value();
+            if (result === false)
+            {
+                return false;
+            }
+            $(this).prop('disabled', true);
+            var ajax = $.ajax({
+                url: post_api,
+                type: 'POST',
+                dataType: 'jsonp',
+                data:{
+                    "token":token_info, 
+                    "result":result
+                }
+            });
+            ajax.done(function(response) {
+                if (typeof(response) == 'object')
+                {
+                    if (response.success == true)
+                    {
+                        _obj.mainfunc(settings.success_call_back, response);
+                        _obj.clear_form_data();
+                        $(this).prop('disabled', false);
+                        _back_data_info = response.data;
+                        return false;
+                    }
+                    _obj.mainfunc(settings.error_call_back, response);
+                    $(this).prop('disabled', false);
+                    return false;
+                }
+                _obj.mainfunc(settings.error_call_back, response);
+            });
+            $(this).prop('disabled', false);
+            return false;
+        });
+    };
+})( jQuery );
