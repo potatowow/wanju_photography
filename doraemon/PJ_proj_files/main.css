@@ -248,23 +248,3 @@ filter: brightness(100%);
   transform: rotate(0deg);
   }
 }
-
-@media (max-width: 768px) {
-  body, html {
-    background: url('https://media.giphy.com/media/A5KN7dA7v5ju8/giphy.gif');
-    background-attachment: fixed;
-    background-size: contain;
-    background-position: center top;
-  }
-  
-}
-
-@media (max-width: 1024px) {
-  body, html {
-    background: url('https://media.giphy.com/media/A5KN7dA7v5ju8/giphy.gif');
-    background-attachment: fixed;
-    background-size: contain;
-    background-position: center top;
-  }
-  
-}
