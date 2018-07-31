@@ -14,7 +14,7 @@ body, html {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    _height:100%;
+    height:100%;
     /*background-color: #fff; color: #fff;*/
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
@@ -22,6 +22,8 @@ body, html {
     background: url('https://media.giphy.com/media/A5KN7dA7v5ju8/giphy.gif');
     background-attachment: fixed;
     background-size: cover;
+    background-position: center top;
+    font-family: 'Noto Sans TC', sans-serif;
 
 }
 .progress {
