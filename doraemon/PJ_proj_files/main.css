@@ -224,9 +224,3 @@ filter: brightness(100%);
   transform: rotate(0deg);
   }
 }
-
-@media (max-width: 767px) {
-body, html { /*background-attachment: initial;*/ 
-  background-attachment: fixed;
-  background-size: contain;
-}
