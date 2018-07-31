@@ -226,4 +226,7 @@ filter: brightness(100%);
 }
 
 @media (max-width: 767px) {
-body, html { background-attachment: initial; }
+body, html { /*background-attachment: initial;*/ 
+  background-attachment: fixed;
+  background-size: contain;
+}
