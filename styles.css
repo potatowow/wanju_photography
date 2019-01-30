@@ -137,11 +137,13 @@ span {
 
 .overlay-menu ul li a {
 	color: #2F322A;
+	text-decoration: none;
 }
 
 .overlay-menu ul li a:hover {
 	opacity: .7;
 	border-bottom: #2F322A 1px solid;
+	transition-duration: 0.5s;
 }
 
 #gotop {
@@ -246,6 +248,7 @@ a {
 
 .button:hover {
 	background-color: hsla(0,0%,90%,0.70);
+	transition-duration: 0.5s;
 }
 
 .artist {
